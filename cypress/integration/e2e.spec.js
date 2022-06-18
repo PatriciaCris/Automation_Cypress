@@ -1,5 +1,6 @@
 /// <reference types="cypress" />
 const dadosProduto = require('../fixtures/produto.json')
+var faker = require('faker')
 
 
 context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
@@ -51,7 +52,20 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
         //Indo para checkout
         cy.get('#cart > .dropdown-toggle').click()
         cy.get('#cart > .dropdown-menu > .widget_shopping_cart_content > .mini_cart_content > .mini_cart_inner > .mcart-border > .buttons > .checkout').click()
-    });
+
+        //Preenchendo campos do checkout com Faker
+        let emailFaker = faker.internet.email()
+        let nomeFaker = faker.name.firstName()
+        let sobrenomeFaker = faker.name.lastName()
+
+        cy.preencherCheckout(nomeFaker, sobrenomeFaker, 'Samsung', 'Brasil', 'Rua Pereira da Silva', '123', 'Manaus', 'Amazonas', '12345678', '988887777', emailFaker)
+
+        //Termos e Finalização
+        cy.get('#terms').check()
+        cy.get('#place_order').click()
+
+        cy.get('.woocommerce-notice').should('contain', 'Obrigado. Seu pedido foi recebido.')
+});
 
 
 })

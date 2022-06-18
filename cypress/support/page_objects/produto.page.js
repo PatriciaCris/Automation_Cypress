@@ -22,10 +22,6 @@ class ProdutoPage {
 
         cy.get(':nth-child(2) > .button').click()
     }
-
-    editarEnderecoEntrega(){
-        //Elementos + Ações
-    }
 }
 
 export default new EnderecoPage()
