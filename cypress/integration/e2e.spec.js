@@ -1,4 +1,6 @@
 /// <reference types="cypress" />
+const dadosProduto = require('../fixtures/produto.json')
+
 
 context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
     /*  Como cliente 
@@ -10,11 +12,45 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
         E validando minha compra ao final */
 
     beforeEach(() => {
-        cy.visit('/')
+        cy.visit('minha-conta')
+        cy.fixture('perfil').then(dados => {
+            cy.login(dados.usuario, dados.senha)
+        })
     });
 
     it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
-        //TODO 
+
+        //Selecionando Produtos
+        cy.get('#primary-menu > .menu-item-629 > a').click()
+        cy.addProdutos(
+            dadosProduto[0].produto, 
+            dadosProduto[0].tamanho, 
+            dadosProduto[0].cor, 
+            dadosProduto[0].quantidade)
+
+        cy.get('#primary-menu > .menu-item-629 > a').click()
+        cy.addProdutos(
+            dadosProduto[1].produto, 
+            dadosProduto[1].tamanho, 
+            dadosProduto[1].cor, 
+            dadosProduto[1].quantidade)
+
+        cy.get('#primary-menu > .menu-item-629 > a').click()
+        cy.addProdutos(
+            dadosProduto[2].produto, 
+            dadosProduto[2].tamanho, 
+            dadosProduto[2].cor, 
+            dadosProduto[2].quantidade)
+
+        //Adicionando produto diferente
+        cy.get('#primary-menu > .menu-item-629 > a').click()
+        cy.get('[class="product-block grid"]').contains("Agasalho jhony quest").click()
+        cy.get('.single_add_to_cart_button').click()
+
+
+        //Indo para checkout
+        cy.get('#cart > .dropdown-toggle').click()
+        cy.get('#cart > .dropdown-menu > .widget_shopping_cart_content > .mini_cart_content > .mini_cart_inner > .mcart-border > .buttons > .checkout').click()
     });
 
 
