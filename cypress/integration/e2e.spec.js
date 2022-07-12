@@ -22,21 +22,18 @@ context('Exercicio - Testes End-to-end - Fluxo de pedido', () => {
     it('Deve fazer um pedido na loja Ebac Shop de ponta a ponta', () => {
 
         //Selecionando Produtos
-        cy.get('#primary-menu > .menu-item-629 > a').click()
         cy.addProdutos(
             dadosProduto[0].produto, 
             dadosProduto[0].tamanho, 
             dadosProduto[0].cor, 
             dadosProduto[0].quantidade)
 
-        cy.get('#primary-menu > .menu-item-629 > a').click()
         cy.addProdutos(
             dadosProduto[1].produto, 
             dadosProduto[1].tamanho, 
             dadosProduto[1].cor, 
             dadosProduto[1].quantidade)
 
-        cy.get('#primary-menu > .menu-item-629 > a').click()
         cy.addProdutos(
             dadosProduto[2].produto, 
             dadosProduto[2].tamanho, 
